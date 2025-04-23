@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.util.List;
 import java.util.Map;
@@ -38,7 +39,7 @@ public class UserActionController {
     public List<UserAction> getAllAction(){
         return repository.findAll();
     }
-    @GetMapping("/stats/coun")
+    @GetMapping("/stats/count")
     public long getTotalActionsCount(){
 
         return repository.count(); //מחזיר מספר מסמכים במסד נתונים
@@ -77,6 +78,12 @@ public class UserActionController {
                         TreeMap::new, // נשמור לפי סדר כרונולוגי
                         Collectors.counting()
                 ));
+    }
+
+    @DeleteMapping("/delete")
+    public String deleteAllActions() {
+        repository.deleteAll();
+        return "All actions deleted successfully";
     }
 
 
