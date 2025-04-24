@@ -1,29 +1,40 @@
 package com.analytics.useranalyticsproject;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.analytics.client_sdk.AnalyticsTracker;
-
-import java.time.LocalDateTime;
+import com.analytics.useranalyticsproject.R;
 
 public class MainActivity extends AppCompatActivity {
+
+    EditText editUserId;
+    Button btnTrack;
+    TextView txtStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AnalyticsTracker.trackAction(
-                "login_button",
-                "user123",
-                LocalDateTime.now()
-        );
+        editUserId = findViewById(R.id.editUserId);
+        btnTrack = findViewById(R.id.btnTrack);
+        txtStatus = findViewById(R.id.txtStatus);
 
+        btnTrack.setOnClickListener(v -> {
+            String userId = editUserId.getText().toString();
+            if (userId.isEmpty()) {
+                txtStatus.setText("Please enter a User ID");
+                return;
+            }
+
+            AnalyticsTracker.init(this, userId);
+            AnalyticsTracker.trackAction("login_clicked");
+            txtStatus.setText("Action sent ✅");
+        });
     }
 }

@@ -1,7 +1,37 @@
+//plugins {
+//    id 'com.android.library'
+//}
+//java {
+//    sourceCompatibility JavaVersion.VERSION_11
+//    targetCompatibility JavaVersion.VERSION_11
+//}
+//
+//dependencies {
+//    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+//    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+//    implementation libs.compiler
+//}
+
 plugins {
-    id 'java-library'
+    id 'com.android.library'
 }
-java {
-    sourceCompatibility JavaVersion.VERSION_11
-    targetCompatibility JavaVersion.VERSION_11
+
+android {
+    namespace 'com.analytics.client_sdk' // ← לוודא שתואם לחבילה שלך
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 33
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+}
+
+dependencies {
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
